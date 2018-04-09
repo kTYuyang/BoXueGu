@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.yuyang.boxuegu.R;
 import com.yuyang.boxuegu.activity.LoginActivity;
+import com.yuyang.boxuegu.activity.SettingActivity;
 import com.yuyang.boxuegu.utils.AnalysisUtils;
 
 /**
@@ -74,7 +75,6 @@ public class MyInfoView {
                 if (readLoginStatus()) {
                     //调到个人资料界面
                 }else{
-
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     ((Activity) mContext).startActivityForResult(intent, 1);
                 }
@@ -87,9 +87,7 @@ public class MyInfoView {
             public void onClick(View v) {
                 if (readLoginStatus()) {
                     //跳转到播放记录
-
-
-                }else{
+                       }else{
                     Toast.makeText(mContext, "您还未登录，请先登录", Toast.LENGTH_SHORT).show();
                 }
 
@@ -100,6 +98,9 @@ public class MyInfoView {
             public void onClick(View v) {
                 if (readLoginStatus()) {
                     //跳转到设置界面
+                    Intent intent = new Intent(mContext, SettingActivity.class);
+                    ((Activity) mContext).startActivityForResult(intent, 1);
+
                 }else{
                     Toast.makeText(mContext, "您还未登录，请先登录", Toast.LENGTH_SHORT).show();
                 }
@@ -110,7 +111,7 @@ public class MyInfoView {
 
     }
 
-    private void setLoginParams(boolean isLogin) {
+    public void setLoginParams(boolean isLogin) {
 
         if (isLogin){tv_user_name.setText(AnalysisUtils.readLoginUsername(mContext));
 
@@ -124,7 +125,7 @@ public class MyInfoView {
 
     private boolean readLoginStatus(){
 
-        SharedPreferences  sp = mContext.getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences  sp = mContext.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
         boolean isLogin = sp.getBoolean("isLogin", false);
         return isLogin;
 
